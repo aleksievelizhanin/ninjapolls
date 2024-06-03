@@ -18,6 +18,7 @@
 
 <style>
     .tabs {
+        margin: 0 auto;
         margin-bottom: 40px;
     }
     ul {

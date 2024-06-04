@@ -1,4 +1,5 @@
 <script>
+    import Button from "../shared/Button.svelte";
     let fields = { question: '', answerA: '', answerB: '' };
 
     const submitHandler = () => {
@@ -19,7 +20,7 @@
         <label for="answerB">Answer B:</label>
         <input type="text" id="answerB" bind:value={fields.answerB}>
     </div>
-    <button>Add poll</button>
+    <Button buttonType="secondary" flat={true} inverse={false}>Add Polls</Button>
 </form>
 
 <style>

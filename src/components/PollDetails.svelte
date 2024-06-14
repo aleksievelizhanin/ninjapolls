@@ -9,6 +9,8 @@
     }
     
     $: totalVotes = poll.votesA + poll.votesB;
+    $: persentA = Math.floor(100/totalVotes*poll.votesA);
+    $: persentB = Math.floor(100/totalVotes*poll.votesB);
 </script>
 
 <Card>
@@ -17,12 +19,12 @@
         <p>Total votes: { totalVotes }</p>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="answer" on:click={() => handleVote('a', poll.id)}>
-            <div class="persent persent-a"></div>
+            <div class="persent persent-a" style="width: {persentA}%;"></div>
             <span>{poll.answerA} ({poll.votesA})</span>
         </div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="answer" on:click={() => handleVote('b', poll.id)}>
-            <div class="persent persent-b"></div>
+            <div class="persent persent-b" style="width: {persentB}%;"></div>
             <span>{poll.answerB} ({poll.votesB})</span>
         </div>
     </div>
@@ -51,5 +53,18 @@
     span {
         display: inline-block;
         padding: 10px 20px; 
+    }
+    .persent {
+        height: 100%;
+        position: absolute;
+        box-sizing: border-box;
+    }
+    .persent-a {
+        background: rgba(217, 67, 26, 0.2);
+        border-left: 4px solid  #d91b42;  
+    }
+    .persent-b {
+        background: rgba(69, 196, 150, 0.2);
+        border-left: 4px solid #45c496
     }
 </style>

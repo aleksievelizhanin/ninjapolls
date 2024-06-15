@@ -11,10 +11,7 @@
 		activeItem = e.detail;
 	}
 	const handleAddPoll = (e) => {
-		const poll = e.detail;
-		polls = [poll, ...polls];
 		activeItem = 'Polls';
-		console.log(polls);
 	}
 	const handleVote = (e) => {
 		const { id, option } = e.detail;

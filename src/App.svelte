@@ -6,7 +6,6 @@
     import PollList from "./components/PollList.svelte";
 
 	let items = ['Polls', 'Add new one'];
-	let polls = [];
 	let activeItem = 'Polls';
 	const changeTab = (e) => {
 		activeItem = e.detail;
@@ -37,7 +36,7 @@
 <main>
 	<Tabs {items} {activeItem} on:tabChange={changeTab}></Tabs>
 	{#if activeItem === 'Polls'}
-		<PollList {polls} on:Vote={handleVote}/>
+		<PollList on:Vote={handleVote}/>
 	{:else if activeItem === 'Add new one'}	
 		<CreatePollForm on:addPoll={handleAddPoll}></CreatePollForm>
 	{/if}

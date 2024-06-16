@@ -5,7 +5,7 @@
 
 </script>
 
-<button class={buttonType} class:flat={flat} class:inverse={inverse}>
+<button class={buttonType} class:flat={flat} class:inverse={inverse} on:click>
     <slot></slot>
 </button>
 

@@ -1,7 +1,8 @@
 <script>
     import Button from "../shared/Button.svelte";
-import Card from "../shared/Card.svelte";
+    import Card from "../shared/Card.svelte";
     import pollStore from "../stores/PollStore";
+    import { tweened } from "svelte/motion";
     export let poll;
 
     const handleVote = (option, id) => {
@@ -25,8 +26,13 @@ import Card from "../shared/Card.svelte";
     } 
     
     $: totalVotes = poll.votesA + poll.votesB;
-    $: persentA = Math.floor(100/totalVotes*poll.votesA);
-    $: persentB = Math.floor(100/totalVotes*poll.votesB);
+    $: persentA = Math.floor(100/totalVotes*poll.votesA) || 0;
+    $: persentB = Math.floor(100/totalVotes*poll.votesB) || 0;
+
+    const tweenedA = tweened(0);
+    const tweenedB = tweened(0);
+    $: tweenedA.set(persentA);
+    $: tweenedB.set(persentB);
 </script>
 
 <Card>
@@ -35,12 +41,12 @@ import Card from "../shared/Card.svelte";
         <p>Total votes: { totalVotes }</p>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="answer" on:click={() => handleVote('a', poll.id)}>
-            <div class="persent persent-a" style="width: {persentA}%;"></div>
+            <div class="persent persent-a" style="width: {$tweenedA}%;"></div>
             <span>{poll.answerA} ({poll.votesA})</span>
         </div>
         <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div class="answer" on:click={() => handleVote('b', poll.id)}>
-            <div class="persent persent-b" style="width: {persentB}%;"></div>
+            <div class="persent persent-b" style="width: {$tweenedB}%;"></div>
             <span>{poll.answerB} ({poll.votesB})</span>
         </div>
         <Button class="delete" on:click={() => handleDelete(poll.id)}>
@@ -86,7 +92,6 @@ import Card from "../shared/Card.svelte";
         background: rgba(69, 196, 150, 0.2);
         border-left: 4px solid #45c496
     }
-
     .delete {
         margin: 20px;
         text-align: center;
